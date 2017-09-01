@@ -16,14 +16,14 @@ import com.arms.domain.service.ProjectService;
 @Controller
 @RequestMapping("/project")
 public class ProjectController {
-	
+
 	@Autowired
 	private ProjectService projectService;
-	
+
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String index(Model model) {
 		List<Project> projectList = projectService.findAllProject();
-		 model.addAttribute("projectList", projectList);
+		model.addAttribute("projectList", projectList);
 
 		return "project/list";
 	}
@@ -41,14 +41,20 @@ public class ProjectController {
 	}
 
 	@RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
-	 public String edit(@PathVariable("id") int id, Model model) {
-	 model.addAttribute("projectForm", projectService.findProjectById(id));
-	return "project/edit";
-	 }
-	
+	public String edit(@PathVariable("id") int id, Model model) {
+		model.addAttribute("projectForm", projectService.findProjectById(id));
+		return "project/edit";
+	}
+
 	@RequestMapping(value = "edit", method = RequestMethod.POST)
-	 public Object edit(@ModelAttribute ProjectForm projectForm) {
-	 projectService.update(projectForm);
-	return "redirect:/project";
-	 }
+	public Object edit(@ModelAttribute ProjectForm projectForm) {
+		projectService.update(projectForm);
+		return "redirect:/project";
+	}
+
+	@RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+	public String delete(@PathVariable("id") int projectId) {
+		projectService.delete(projectId);
+		return "redirect:/project";
+	}
 }

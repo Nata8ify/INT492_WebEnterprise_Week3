@@ -42,5 +42,9 @@ public class ProjectService {
 		project.setUpdatedDate(Calendar.getInstance().getTime());
 		projectRepository.save(project);
 		 }
+	
+	public void delete(int projectId) {
+		projectRepository.delete(projectId);
+		 }
 
 }
