@@ -24,7 +24,8 @@ public class ProjectController {
 	public String index(Model model) {
 		List<Project> projectList = projectService.findAllProject();
 		model.addAttribute("projectList", projectList);
-
+		model.addAttribute("projectRemainingTaskMap", projectService.calcRemainingTaskNumber(projectList));
+		 
 		return "project/list";
 	}
 
@@ -57,4 +58,6 @@ public class ProjectController {
 		projectService.delete(projectId);
 		return "redirect:/project";
 	}
+	
+	
 }
