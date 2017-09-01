@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -39,4 +40,15 @@ public class ProjectController {
 		return "redirect:/project";
 	}
 
+	@RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
+	 public String edit(@PathVariable("id") int id, Model model) {
+	 model.addAttribute("projectForm", projectService.findProjectById(id));
+	return "project/edit";
+	 }
+	
+	@RequestMapping(value = "edit", method = RequestMethod.POST)
+	 public Object edit(@ModelAttribute ProjectForm projectForm) {
+	 projectService.update(projectForm);
+	return "redirect:/project";
+	 }
 }

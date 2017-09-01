@@ -31,4 +31,16 @@ public class ProjectService {
 		return projectRepository.findAll();
 	};
 
+	public ProjectForm findProjectById(int id){
+		Project project = projectRepository.findOne(id);
+		return new ProjectForm(project.getId(), project.getName());
+	};
+	
+	public void update(ProjectForm projectForm) {
+		 Project project = projectRepository.findOne(projectForm.getId());
+		 project.setName(projectForm.getName());
+		project.setUpdatedDate(Calendar.getInstance().getTime());
+		projectRepository.save(project);
+		 }
+
 }
